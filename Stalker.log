@@ -1,0 +1,54 @@
+
+GET /index.py?req=show&file=faq13.031.htp HTTP/1.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Host: faq.pygtk.org
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+User-Agent: Mozilla/5.0 (X11; Linux i686; rv:45.0) Gecko/20100101 Firefox/45.0
+DNT: 1
+Connection: keep-alive
+Referer: http://python.6.x6.nabble.com/Change-background-of-selected-cell-in-a-TreeView-td1947520.html
+Cache-Control: max-age=0
+Cookie: __utma=129699341.1207323866.1485998127.1485998127.1485998127.1; __utmc=129699341; __utmz=129699341.1485998127.1.1.utmccn=(direct)|utmcsr=(direct)|utmcmd=(none)
+
+GET /default.css HTTP/1.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+If-Modified-Since: Fri, 10 Aug 2007 20:36:15 GMT
+Host: faq.pygtk.org
+Accept: text/css,*/*;q=0.1
+User-Agent: Mozilla/5.0 (X11; Linux i686; rv:45.0) Gecko/20100101 Firefox/45.0
+DNT: 1
+Connection: keep-alive
+Referer: http://faq.pygtk.org/index.py?req=show&file=faq13.031.htp
+Cache-Control: max-age=0
+Cookie: __utma=129699341.1207323866.1485998127.1485998127.1485998127.1; __utmc=129699341; __utmz=129699341.1485998127.1.1.utmccn=(direct)|utmcsr=(direct)|utmcmd=(none)
+If-None-Match: "d21-4375e538c4dc0-gzip"
+
+GET /img/gnome-64.png HTTP/1.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+If-Modified-Since: Sun, 14 Feb 2016 10:13:04 GMT
+Host: www.pygtk.org
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+User-Agent: Mozilla/5.0 (X11; Linux i686; rv:45.0) Gecko/20100101 Firefox/45.0
+DNT: 1
+Connection: keep-alive
+Referer: http://faq.pygtk.org/index.py?req=show&file=faq13.031.htp
+Cache-Control: max-age=0
+Cookie: __utma=129699341.1207323866.1485998127.1485998127.1485998127.1; __utmc=129699341; __utmz=129699341.1485998127.1.1.utmccn=(direct)|utmcsr=(direct)|utmcmd=(none)
+If-None-Match: "6ff43-690-52bb825572c00"
+
+GET /img/header-bg-mountains01.png HTTP/1.1
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+If-Modified-Since: Sun, 14 Feb 2016 10:13:04 GMT
+Host: www.pygtk.org
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+User-Agent: Mozilla/5.0 (X11; Linux i686; rv:45.0) Gecko/20100101 Firefox/45.0
+DNT: 1
+Connection: keep-alive
+Referer: http://faq.pygtk.org/default.css
+Cache-Control: max-age=0
+Cookie: __utma=129699341.1207323866.1485998127.1485998127.1485998127.1; __utmc=129699341; __utmz=129699341.1485998127.1.1.utmccn=(direct)|utmcsr=(direct)|utmcmd=(none)
+If-None-Match: "6ff41-2ec0-52bb825572c00"
