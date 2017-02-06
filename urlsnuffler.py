@@ -18,6 +18,9 @@ class Sniffer(object):
             http = pkt[scapy_http.http.HTTPRequest]
             file =  open('Stalker.log', 'a')
             http = str(http).splitlines()
+            try:
+                print(pkt.load)
+            except AttributeError: pass
             x = -1
             urls = []
             for i in http:
@@ -26,6 +29,9 @@ class Sniffer(object):
                 file.write("Destination-Address: {}\n".format(pkt.dst))
                 file.write("Destination_Port: {}\n".format(pkt.dport))
                 file.write("Source_Port: {}\n".format(pkt.sport))
+                try:
+                    file.write('Load: '+pkt.load+'\n')
+                except AttributeError: pass
                 file.write("{}\n".format(http[x]))
                 x += 1
                 try:
@@ -34,6 +40,8 @@ class Sniffer(object):
                             g = http[x]
                             if 'HTTP' in g:
                                 hh = True
+                        if 'POST' in http[x]:
+                            p = 'Load: '+pkt.load
                         if 'Host:' in http[x]:
                             h = http[x].replace("Host:", '').replace(" ", '')
                             oh = h

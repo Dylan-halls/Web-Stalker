@@ -10,6 +10,7 @@ typ = []
 Dst_Address = []
 Source_Port = []
 Dst_Port = []
+Load = []
 User_Agent = []
 Accept = []
 Referer = []
@@ -69,6 +70,11 @@ with open('Stalker.log', 'r') as file:
         if 'GET' in i:
             Method.append('GET')
             Get_Method.append(i[4:].strip().replace("HTTP/1.1", ''))
+        if 'POST' in i:
+            Method.append('POST')
+            Get_Method.append(i[5:].strip().replace("HTTP/1.1", ''))
+        if 'Load:' in i:
+            Load.append(i[6:].strip())
         if 'HTTP/1.1' in i:
             HTTP_Version.append('HTTP/1.1')
         if 'Accept-Encoding:' in i:
@@ -187,6 +193,10 @@ class PyApp(gtk.Window):
                       data_store.append(row, ['', 'Destination Port:', Dst_Port[i]])
                       data_store.append(row, ['', '         HTTP Version:', HTTP_Version[i]])
                       data_store.append(row, ['', '         Request:', Get_Method[i]])
+                      try:
+                          if Method[i] == 'POST':
+                              data_store.append(row, ['', '         Load:', Load[i]])
+                      except UnboundLocalError: pass
                       data_store.append(row, ['', '         User-Agent:', User_Agent[i]])
                       data_store.append(row, ['', '         Referer:', Referer[i]])
                       data_store.append(row, ['', '         Cookie:', Cookie[i]])
@@ -203,7 +213,7 @@ class PyApp(gtk.Window):
         try:
             if typ[o] == 'HTTP Responce\n':
                 print('HTTP Request')
-                row = data_store.append(None,['HTTP Responce', '', 'http://www.bbc.com/'])
+                row = data_store.append(None,['HTTP Responce', '', Source_Address[o]])
                 data_store.append(row, ['', 'Source Mac:', Source_Address[o]])
                 data_store.append(row, ['', 'Destination Mac:', Dst_Address[o]])
                 data_store.append(row, ['', 'Source Port:', Source_Port[o]])
