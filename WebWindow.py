@@ -193,10 +193,9 @@ class PyApp(gtk.Window):
                       data_store.append(row, ['', 'Destination Port:', Dst_Port[i]])
                       data_store.append(row, ['', '         HTTP Version:', HTTP_Version[i]])
                       data_store.append(row, ['', '         Request:', Get_Method[i]])
-                      try:
-                          if Method[i] == 'POST':
-                              data_store.append(row, ['', '         Load:', Load[i]])
-                      except UnboundLocalError: pass
+                      if Method[i] == 'POST':
+                          data_store.append(row, ['', '         Load:', Load[i]])
+                          print(Load[i])
                       data_store.append(row, ['', '         User-Agent:', User_Agent[i]])
                       data_store.append(row, ['', '         Referer:', Referer[i]])
                       data_store.append(row, ['', '         Cookie:', Cookie[i]])

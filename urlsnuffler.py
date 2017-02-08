@@ -19,20 +19,17 @@ class Sniffer(object):
             file =  open('Stalker.log', 'a')
             http = str(http).splitlines()
             try:
-                print(pkt.load)
+                pass
+                #print(pkt.load)
             except AttributeError: pass
             x = -1
             urls = []
             for i in http:
-                file.write("HTTP-Type: HTTP Request\n")
+                file.write("\nHTTP-Type: HTTP Request\n")
                 file.write("Source-Address: {}\n".format(pkt.src))
                 file.write("Destination-Address: {}\n".format(pkt.dst))
                 file.write("Destination_Port: {}\n".format(pkt.dport))
                 file.write("Source_Port: {}\n".format(pkt.sport))
-                try:
-                    file.write('Load: '+pkt.load+'\n')
-                except AttributeError: pass
-                file.write("{}\n".format(http[x]))
                 x += 1
                 try:
                     try:
@@ -40,17 +37,22 @@ class Sniffer(object):
                             g = http[x]
                             if 'HTTP' in g:
                                 hh = True
+                                file.write(g+'\n')
                         if 'POST' in http[x]:
-                            p = 'Load: '+pkt.load
+                            file.write(http[x]+'\n')
+                            file.write('Load: '+pkt.load+'\n')
                         if 'Host:' in http[x]:
                             h = http[x].replace("Host:", '').replace(" ", '')
                             oh = h
+                            file.write('Host: '+h+'\n')
                             if hh == True:
                                 h = 'http://'+h
                         if 'User-Agent:' in http[x]:
                             u = http[x].replace("User-Agent:", '')
+                            file.write('User-Agent: '+u+'\n')
                         if 'Referer:' in http[x]:
                             r = http[x].replace("Referer:", '')
+                            file.write('Referer: '+r+'\n')
                         try:
                             r = r.replace(" ", '')
                             print("\""+h+g[4:]+"\"","-","\"{0}\" -{1} - {2}".format(oh, u, r))
