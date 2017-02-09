@@ -9,6 +9,7 @@ from scapy.all import sniff
 class Sniffer(object):
 
     def __init__(self):
+        log = logger.Logger()
         log.info('Sniffer is starting up')
         with open('Stalker.log', 'w') as file:
             file.write('')
@@ -19,10 +20,6 @@ class Sniffer(object):
             http = pkt[scapy_http.http.HTTPRequest]
             file =  open('Stalker.log', 'a')
             http = str(http).splitlines()
-            try:
-                pass
-                #print(pkt.load)
-            except AttributeError: pass
             x = -1
             urls = []
             for i in http:
@@ -54,6 +51,9 @@ class Sniffer(object):
                         if 'Referer:' in http[x]:
                             r = http[x].replace("Referer:", '')
                             file.write('Referer: '+r+'\n')
+                        if 'Cookie:' in http[x]:
+                            c = http[x].replace("Cookie:", '')
+                            file.write('Cookie: '+c+'\n')
                         try:
                             r = r.replace(" ", '')
                             print("\""+h+g[4:]+"\"","-","\"{0}\" -{1} - {2}".format(oh, u, r))
