@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from  __future__ import print_function
-import logging, socket, gtk, webkit, gobject, multiprocessing, sys, scapy_http.http, warnings
+import logging, socket, gtk, webkit, gobject, multiprocessing, sys, scapy_http.http, warnings, logger
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 warnings.filterwarnings("ignore")
 from scapy.all import sniff
@@ -9,6 +9,7 @@ from scapy.all import sniff
 class Sniffer(object):
 
     def __init__(self):
+        log.info('Sniffer is starting up')
         with open('Stalker.log', 'w') as file:
             file.write('')
             file.close()
