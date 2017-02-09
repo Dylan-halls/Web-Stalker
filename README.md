@@ -18,3 +18,10 @@ and data in a extremly readable format.
 
 And you can analyse the data on the fly by using the data shown in the terminal, and every
 HTTP Request haveing a link the the site and page that the victim is on.
+
+There is an additional option of being able to view a targets website with a specialy designed 'Web Stalker Browser'
+that will allow you to navigate the sites with ease and efficiancy
+
+There is also the option to record and save notes on a in window note pad. This opens up a whole load of doors with it being
+possable to save the text in any format meaning you could write a web report for your finding in 
+HTML or PHP or write a GUI in C to disply it, or evan create a whole markdown page!
