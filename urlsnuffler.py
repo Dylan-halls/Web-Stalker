@@ -9,14 +9,17 @@ from scapy.all import sniff
 class Sniffer(object):
 
     def __init__(self):
+        global log
         log = logger.Logger()
         log.info('Sniffer is starting up')
         with open('Stalker.log', 'w') as file:
             file.write('')
             file.close()
+        log.info('Wiped previous session')
 
     def pkt_handle(self, pkt):
         if pkt.haslayer(scapy_http.http.HTTPRequest):
+            log.info('Caught http request')
             http = pkt[scapy_http.http.HTTPRequest]
             file =  open('Stalker.log', 'a')
             http = str(http).splitlines()
@@ -59,7 +62,7 @@ class Sniffer(object):
                             print("\""+h+g[4:]+"\"","-","\"{0}\" -{1} - {2}".format(oh, u, r))
                         except UnboundLocalError: pass
                     except UnboundLocalError: pass
-                except IndexError: pass
+                except IndexError: log.warn('Unorded Packet')
                 if 'Cookie:' in http[x]:
                     try:
                         c = http[x].replace("Cookie:", '')
@@ -67,8 +70,10 @@ class Sniffer(object):
                     except UnboundLocalError: pass
 
         elif pkt.haslayer(scapy_http.http.HTTPResponse):
+            log.info('http responce caught')
             http = pkt[scapy_http.http.HTTPResponse]
             file =  open('Stalker.log', 'ab')
+            log.info('logging responce packet')
             http = str(http).splitlines()
             x = -1
             urls = []
@@ -179,6 +184,7 @@ class Sniffer(object):
                     #26
                     print("{} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {}".format(sl, age, et, loc, pa, ra, s, v, wwwa, cc, conn, dat, pra, tra, te, upg, via, warn, ka, al, coe, col, cole, colo, comd, cora, coty, ex, lamo, hea, adhe))               
                 except UnboundLocalError: pass
+            log.info('found: '+''.join(urls)+'urls!')
 
 def main():
     sn = Sniffer()

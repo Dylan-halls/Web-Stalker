@@ -5,15 +5,15 @@ class Logger(object):
 
 	def info(self, text):
 		with open('Stalker-RunTime.log', 'a') as file:
-			file.write('G - '+text+'\n')
+			file.write('Info: '+text+'\n')
 
 	def warn(self, text):
 		with open('Stalker-RunTime.log', 'a') as file:
-			file.write('Y - '+text+'\n')
+			file.write('Warning: '+text+'\n')
 
 	def error(self, text):
 		with open('Stalker-RunTime.log', 'a') as file:
-			file.write('R - '+text+'\n')
+			file.write('Error: '+text+'\n')
 
 if __name__ == '__main__':
 	log = Logger()

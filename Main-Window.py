@@ -173,6 +173,17 @@ class PyApp(gtk.Window):
    
    def open_window(self, url):
       url = address_bar.get_text()
+      for letter in url:
+          if '.' not in url:
+               a = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR, gtk.BUTTONS_CANCEL)
+               a.set_markup("<big><b>WTF!?!? Thats not even a website?</b></big>")
+               a.run()
+               return
+      if 'http://' not in url:
+           w = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_WARNING, gtk.BUTTONS_OK)
+           w.set_markup("<big><b>**mumble, mumble** Force to change {} to {}</b></big>".format(url, 'http://'+url+'/'))
+           w.run()
+           url = 'http://'+url+'/'
       os.system('python Web-Window.py '+url)
 
    def passer(self):
@@ -182,22 +193,31 @@ class PyApp(gtk.Window):
       except NameError: pass
       return web
    
+   def adder(self, text):
+      file_name = add_bar.get_text()
+      with open('templates/'+file_name, 'r') as file:
+          data = file.read()
+          textbuffer.set_text(data)
+   
    def saver(self, text):
       file_name = save_bar.get_text()
       start_iter = textbuffer.get_start_iter()
       end_iter = textbuffer.get_end_iter()
       file_data = textbuffer.get_text(start_iter, end_iter, True)  
-      with open(file_name, 'w') as file:
+      with open('Reports/'+file_name, 'w') as file:
          file.write(file_data)
          file.close()
+      done = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_INFO, gtk.BUTTONS_OK)
+      done.set_markup("<big><b>File {} Has Been Saved</b></big>".format(file_name))
+      done.run()
 
    def __init__(self):
-      global address_bar, save_bar, TextBox1, textbuffer
+      global address_bar, save_bar, TextBox1, textbuffer, add_bar
       super(PyApp, self).__init__()
       web = webkit.WebView()
       self.set_icon_from_file('stalker-icon.jpg')
       self.set_title("Web Stalker")
-      self.set_size_request(1000,600)
+      self.set_size_request(1100,600)
       self.set_position(gtk.WIN_POS_CENTER)
 
       vbox = gtk.VBox(False, 5)
@@ -206,7 +226,10 @@ class PyApp(gtk.Window):
 
       la = gtk.Label()
       la.set_markup('<big><b>Web Stalker</b></big>\n  <small><b>Version: 1.0.0</b></small>')
-      whbox.add(la)
+      #vbox.pack_start(la, False)
+
+      add_b = gtk.Label()
+      add_b.set_markup('<b>Template: </b>')
 
       addr_b = gtk.Label()
       addr_b.set_markup('<b>Website: </b>')
@@ -215,20 +238,27 @@ class PyApp(gtk.Window):
       sav_f_as.set_markup('<b>Save As: </b>')
 
       save_bar = gtk.Entry()
-      #save_bar.set_text('File Name')
+      add_bar = gtk.Entry()
 
       vbox.pack_start(hbox)
       
       TextBox1 = gtk.TextView()
+      TextBox1.set_editable(True)
       textbuffer = TextBox1.get_buffer()
       notee = gtk.ScrolledWindow(None, None)
       notee.add(TextBox1)
 
-      hbox.pack_start(whbox)
+      #hbox.pack_start(whbox)
       hbox.pack_start(notee)
       
       navigation = gtk.HBox()
       fs = gtk.HBox()
+      lb = gtk.HBox()
+      add = gtk.ToolButton(gtk.STOCK_ADD)
+      add.connect('clicked', self.adder)
+      lb.pack_start(add_b, False)
+      lb.pack_start(add_bar)
+      lb.pack_start(add, False)
       save = gtk.ToolButton(gtk.STOCK_SAVE)
       save.connect('clicked', self.saver)
       fs.pack_start(sav_f_as, False)
@@ -241,6 +271,7 @@ class PyApp(gtk.Window):
       navigation.pack_start(addr_b, False)
       navigation.pack_start(address_bar)
       navigation.pack_start(forward, False)
+      vbox.pack_start(lb, False)
       vbox.pack_start(fs, False)
       vbox.pack_start(navigation, False)
       address_bar.connect('activate', self.passer)

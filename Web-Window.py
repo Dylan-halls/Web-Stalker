@@ -4,7 +4,7 @@ class PyApp(gtk.Window):
    
    def __init__(self):
       super(PyApp, self).__init__()
-      self.set_title("Web Stalker")
+      self.set_title("Web Stalker Browser")
       self.set_size_request(1000,600)
       self.set_position(gtk.WIN_POS_CENTER)
       vbox = gtk.VBox(False, 5)
